@@ -4,15 +4,13 @@ export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
     const getInitialTheme = () => {
+        // Se o usuário já escolheu um tema antes, respeita a escolha dele
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             return savedTheme;
         }
-        // Verifica preferência do sistema
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark';
-        }
-        return 'light'; // <-- MUDADO PARA LIGHT POR PADRÃO
+        // Primeira visita: sempre dark mode
+        return 'dark';
     };
 
     const [theme, setTheme] = useState(getInitialTheme);
@@ -20,7 +18,7 @@ export const ThemeProvider = ({ children }) => {
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
-        
+
         // Adiciona classe para animação suave
         document.documentElement.style.transition = 'background-color 0.5s ease, color 0.3s ease';
     }, [theme]);
