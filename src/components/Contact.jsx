@@ -33,10 +33,9 @@ const Contact = () => {
         }
 
         try {
-            const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID || 'service_d1puq2n';
-            const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'template_c7ku8ql';
-            const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'KYsMQ5v0eNo0Cotnp';
-
+            const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+            const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+            const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
             const result = await emailjs.send(
                 serviceId,
                 templateId,
